@@ -27,7 +27,7 @@ class _AdminScaffoldState extends State<AdminScaffold>
     with SingleTickerProviderStateMixin {
   static const _mobileThreshold = 768.0;
 
-  late AppBar? _appBar;
+  late PreferredSize? _appBar;
   late AnimationController _animationController;
   late Animation _animation;
   bool _isMobile = false;
@@ -173,11 +173,15 @@ class _AdminScaffoldState extends State<AdminScaffold>
                           onHorizontalDragUpdate: _dragCloseDrawer,
                         ),
                       ClipRect(
-                        child: SizedOverflowBox(
-                          size: Size(
-                              (widget.sideBar?.width ?? 1.0) * _animation.value,
-                              double.infinity),
-                          child: widget.sideBar,
+                        child: Hero(
+                          tag: 'sidebar',
+                          child: SizedOverflowBox(
+                            size: Size(
+                                (widget.sideBar?.width ?? 1.0) *
+                                    _animation.value,
+                                double.infinity),
+                            child: widget.sideBar,
+                          ),
                         ),
                       ),
                     ],
@@ -207,7 +211,7 @@ class _AdminScaffoldState extends State<AdminScaffold>
     );
   }
 
-  AppBar? _buildAppBar(AppBar? appBar, SideBar? sideBar) {
+  PreferredSize? _buildAppBar(AppBar? appBar, SideBar? sideBar) {
     if (appBar == null) {
       return null;
     }
@@ -220,34 +224,40 @@ class _AdminScaffoldState extends State<AdminScaffold>
         : appBar.leading;
     final shadowColor = Colors.transparent;
 
-    return AppBar(
-      leading: leading,
-      automaticallyImplyLeading: appBar.automaticallyImplyLeading,
-      title: appBar.title,
-      actions: appBar.actions,
-      flexibleSpace: appBar.flexibleSpace,
-      bottom: appBar.bottom,
-      elevation: appBar.elevation,
-      scrolledUnderElevation: appBar.scrolledUnderElevation,
-      notificationPredicate: appBar.notificationPredicate,
-      shadowColor: shadowColor,
-      surfaceTintColor: appBar.surfaceTintColor,
-      shape: appBar.shape,
-      backgroundColor: appBar.backgroundColor,
-      foregroundColor: appBar.foregroundColor,
-      iconTheme: appBar.iconTheme,
-      actionsIconTheme: appBar.actionsIconTheme,
-      primary: appBar.primary,
-      centerTitle: appBar.centerTitle ?? false,
-      excludeHeaderSemantics: appBar.excludeHeaderSemantics,
-      titleSpacing: appBar.titleSpacing,
-      toolbarOpacity: appBar.toolbarOpacity,
-      bottomOpacity: appBar.bottomOpacity,
-      toolbarHeight: appBar.toolbarHeight,
-      leadingWidth: appBar.leadingWidth,
-      toolbarTextStyle: appBar.toolbarTextStyle,
-      titleTextStyle: appBar.titleTextStyle,
-      systemOverlayStyle: appBar.systemOverlayStyle,
+    return PreferredSize(
+      preferredSize: Size.fromHeight(50),
+      child: Hero(
+        tag: 'appbar',
+        child: AppBar(
+          leading: leading,
+          automaticallyImplyLeading: appBar.automaticallyImplyLeading,
+          title: appBar.title,
+          actions: appBar.actions,
+          flexibleSpace: appBar.flexibleSpace,
+          bottom: appBar.bottom,
+          elevation: appBar.elevation,
+          scrolledUnderElevation: appBar.scrolledUnderElevation,
+          notificationPredicate: appBar.notificationPredicate,
+          shadowColor: shadowColor,
+          surfaceTintColor: appBar.surfaceTintColor,
+          shape: appBar.shape,
+          backgroundColor: appBar.backgroundColor,
+          foregroundColor: appBar.foregroundColor,
+          iconTheme: appBar.iconTheme,
+          actionsIconTheme: appBar.actionsIconTheme,
+          primary: appBar.primary,
+          centerTitle: appBar.centerTitle ?? false,
+          excludeHeaderSemantics: appBar.excludeHeaderSemantics,
+          titleSpacing: appBar.titleSpacing,
+          toolbarOpacity: appBar.toolbarOpacity,
+          bottomOpacity: appBar.bottomOpacity,
+          toolbarHeight: appBar.toolbarHeight,
+          leadingWidth: appBar.leadingWidth,
+          toolbarTextStyle: appBar.toolbarTextStyle,
+          titleTextStyle: appBar.titleTextStyle,
+          systemOverlayStyle: appBar.systemOverlayStyle,
+        ),
+      ),
     );
   }
 }
