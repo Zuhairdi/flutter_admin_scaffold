@@ -173,15 +173,11 @@ class _AdminScaffoldState extends State<AdminScaffold>
                           onHorizontalDragUpdate: _dragCloseDrawer,
                         ),
                       ClipRect(
-                        child: Hero(
-                          tag: 'sidebar',
-                          child: SizedOverflowBox(
-                            size: Size(
-                                (widget.sideBar?.width ?? 1.0) *
-                                    _animation.value,
-                                double.infinity),
-                            child: widget.sideBar,
-                          ),
+                        child: SizedOverflowBox(
+                          size: Size(
+                              (widget.sideBar?.width ?? 1.0) * _animation.value,
+                              double.infinity),
+                          child: widget.sideBar,
                         ),
                       ),
                     ],
@@ -189,13 +185,16 @@ class _AdminScaffoldState extends State<AdminScaffold>
                 : Row(
                     children: [
                       widget.sideBar != null
-                          ? ClipRect(
-                              child: SizedOverflowBox(
-                                size: Size(
-                                    (widget.sideBar?.width ?? 1.0) *
-                                        _animation.value,
-                                    double.infinity),
-                                child: widget.sideBar,
+                          ? Hero(
+                              tag: 'sidebar',
+                              child: ClipRect(
+                                child: SizedOverflowBox(
+                                  size: Size(
+                                      (widget.sideBar?.width ?? 1.0) *
+                                          _animation.value,
+                                      double.infinity),
+                                  child: widget.sideBar,
+                                ),
                               ),
                             )
                           : SizedBox(),
